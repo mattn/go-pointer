@@ -1,15 +1,19 @@
 package pointer
 
 import (
+	"sync"
 	"unsafe"
 )
 
 var (
 	index uintptr = 0
 	store         = map[uintptr]interface{}{}
+	mutex sync.Mutex
 )
 
 func Save(v interface{}) unsafe.Pointer {
+	mutex.Lock()
+	defer mutex.Unlock()
 	store[index] = v
 	curr := index
 	index++
@@ -17,6 +21,8 @@ func Save(v interface{}) unsafe.Pointer {
 }
 
 func Restore(i uintptr) interface{} {
+	mutex.Lock()
+	defer mutex.Unlock()
 	if v, ok := store[i]; ok {
 		return v
 	}
@@ -24,5 +30,7 @@ func Restore(i uintptr) interface{} {
 }
 
 func Unref(i uintptr) {
+	mutex.Lock()
+	defer mutex.Unlock()
 	delete(store, i)
 }
