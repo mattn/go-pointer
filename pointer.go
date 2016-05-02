@@ -24,5 +24,5 @@ func Restore(i uintptr) interface{} {
 }
 
 func Unref(i uintptr) {
-	delete(store, index)
+	delete(store, i)
 }
