@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	index uintptr = 0
+	index uintptr = 100
 	store         = map[uintptr]interface{}{}
 	mutex sync.Mutex
 )
