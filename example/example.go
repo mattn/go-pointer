@@ -1,7 +1,7 @@
 package example
 
 /*
-void *pass_poinetr(void* p) {
+void *pass_pointer(void* p) {
   return p;
 }
 */
