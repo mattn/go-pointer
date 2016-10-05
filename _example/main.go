@@ -24,6 +24,6 @@ func main() {
 
 //export call_later_go_cb
 func call_later_go_cb(data unsafe.Pointer) {
-	f := pointer.Restore(uintptr(data)).(*Foo)
+	f := pointer.Restore(data).(*Foo)
 	fmt.Println(f.v)
 }
