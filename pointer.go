@@ -33,17 +33,15 @@ func Save(v interface{}) unsafe.Pointer {
 	return ptr
 }
 
-func Restore(ptr unsafe.Pointer) interface{} {
+func Restore(ptr unsafe.Pointer) (v interface{}) {
 	if ptr == nil {
 		return nil
 	}
 
 	mutex.Lock()
-	defer mutex.Unlock()
-	if v, ok := store[ptr]; ok {
-		return v
-	}
-	return nil
+	v = store[ptr]
+	mutex.Unlock()
+	return
 }
 
 func Unref(ptr unsafe.Pointer) {
