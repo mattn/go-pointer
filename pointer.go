@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	mutex sync.Mutex
+	mutex sync.RWMutex
 	store = map[unsafe.Pointer]interface{}{}
 )
 
@@ -38,9 +38,9 @@ func Restore(ptr unsafe.Pointer) (v interface{}) {
 		return nil
 	}
 
-	mutex.Lock()
+	mutex.RLock()
 	v = store[ptr]
-	mutex.Unlock()
+	mutex.RUnlock()
 	return
 }
 
